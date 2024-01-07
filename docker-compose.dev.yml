@@ -1,0 +1,49 @@
+version: '3.9'
+services:
+  food-review:
+    build: food-review
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./food-review:/usr/app
+      - /usr/app/build
+      - /usr/app/node_modules
+  reviews:
+    build: reviews
+    ports:
+      - '4001:4001'
+    volumes:
+      - ./reviews:/usr/app
+      - /usr/app/node_modules
+  event-bus:
+    build: event-bus
+    volumes:
+      - ./event-bus:/usr/app
+      - /usr/app/node_modules
+  photos:
+    build: photos
+    ports:
+      - '4000:4000'
+    volumes:
+      - ./photos:/usr/app
+      - /usr/app/node_modules
+  management:
+    build: management
+    ports:
+      - '4002:4002'
+    volumes:
+      - ./management:/usr/app
+      - /usr/app/node_modules
+      
+  photos-db:
+    image: mongo:latest
+    volumes:
+      - photos-data:/data/db
+    environment:
+      NODE_ENV: development
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: secret
+
+volumes:
+  photos-data:
+
