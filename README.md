@@ -1,1 +1,1 @@
-# 426-project
+# UMass Food Review
